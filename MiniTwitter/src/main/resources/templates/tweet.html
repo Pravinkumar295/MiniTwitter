@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymleaf.com">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mini Twitter</title>
+<style>
+  :root{
+    --card-border:#e6e6e6;
+    --muted:#666;
+    --blue:#0b63e6;
+    --bg:#fafafa;
+  }
+
+  html,body{
+    height:100%;
+    margin:0;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    color:#222;
+  }
+
+  /* overall container to mimic screenshot spacing */
+  .outer {
+    display:flex;
+    justify-content:flex-start;      /* screenshot left offset */
+    padding:36px 64px;
+    gap:24px;
+  }
+
+  /* the main card */
+  .card {
+    width:680px;
+    border-radius:18px;
+    border:2px solid var(--card-border);
+    background:#fff;
+    padding:26px 28px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+  }
+
+  /* top row: title left, recent tweets button right */
+  .top-row {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:18px;
+  }
+
+  .title {
+    font-size:34px;
+    font-weight:700;
+    line-height:1;
+    margin:0;
+  }
+
+  .sub {
+    color:var(--muted);
+    font-size:14px;
+    margin-top:6px;
+  }
+
+  .recent-btn{
+    background:var(--blue);
+    color:white;
+    border-radius:8px;
+    padding:10px 16px;
+    border:none;
+    font-weight:600;
+    box-shadow: 0 2px 0 rgba(11,99,230,0.15);
+    cursor:pointer;
+    font-size:14px;
+  }
+
+  /* form layout: labels column on left, inputs on right */
+  .form {
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:12px 18px;
+    align-items:start;
+  }
+
+  label {
+    font-size:14px;
+    color:var(--muted);
+    padding-top:6px;
+  }
+
+  input[type="text"]{
+    width:320px;
+    height:34px;
+    padding:6px 10px;
+    border-radius:6px;
+    border:2px solid #dedede;
+    font-size:14px;
+    outline:none;
+  }
+  input[type="text"]:focus{
+    border-color: #c7dbff;
+    box-shadow:0 0 0 4px rgba(11,99,230,0.06);
+  }
+
+  textarea{
+    width:100%;
+    min-height:200px;
+    max-height:380px;
+    padding:12px;
+    border-radius:8px;
+    border:2px solid #dedede;
+    font-size:15px;
+    resize:vertical;
+    box-sizing:border-box;
+    outline:none;
+  }
+  textarea:focus{
+    border-color:#c7dbff;
+    box-shadow:0 0 0 4px rgba(11,99,230,0.06);
+  }
+
+  /* Post button (centered beneath textarea in screenshot) */
+  .post-row {
+    grid-column: 1 / -1;
+    display:flex;
+    justify-content:center;
+    margin-top:16px;
+  }
+
+  .post-btn{
+    background:var(--blue);
+    color:white;
+    border:none;
+    padding:10px 36px;
+    border-radius:10px;
+    font-weight:600;
+    font-size:15px;
+    box-shadow:0 4px 0 rgba(11,99,230,0.12);
+    cursor:pointer;
+  }
+
+  /* subtle rounded viewport number look (screenshot shows left small box for number) */
+  .left-number {
+    position:absolute;
+    left:18px;
+    top:18px;
+    width:56px;
+    height:64px;
+    border-radius:12px;
+    border:1px solid #e6e6e6;
+    background:linear-gradient(#f6f6f6,#fff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    color:#777;
+  }
+
+  /* small responsive tweak */
+  @media (max-width:760px){
+    .card{ width:94%; padding:18px; }
+    input[type="text"]{ width:100%; }
+    .outer{ padding:16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="outer">
+  <!-- left number block similar to image (since you asked to ignore complexity box,
+       I left this as a decorative small box to match the screenshot style) -->
+  <!-- <div style="position:relative;">
+    <div class="left-number">1</div>
+  </div> -->
+
+  <div class="card" aria-label="Mini Twitter card">
+    <div class="top-row">
+      <div>
+        <h1 class="title">Mini Twitter</h1>
+        <div class="sub">Post your update (Tweet)</div>
+      </div>
+
+      <a class="recent-btn" th:href="@{/get/all}" type="button">Recent Tweets</a>
+    </div>
+
+    <form class="form" th:action="@{/create}" method="post">
+      <label for="name">Your name</label>
+      <div>
+        <input id="name" name="name" type="text" placeholder="Enter your name" />
+      </div>
+
+      <label for="message">Your message</label>
+      <div>
+        <textarea id="message" name="message" placeholder="Write something..."></textarea>
+      </div>
+
+      <div class="post-row">
+        <button class="post-btn" type="submit">Post</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

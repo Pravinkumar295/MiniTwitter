@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mini Twitter - Recent Tweets</title>
+<style>
+  body {
+    margin: 40px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #111;
+  }
+
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .subtitle em {
+    font-weight: normal;
+    color: #666;
+    font-style: italic;
+  }
+
+  .tweet-btn {
+    background: #0b63e6;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  th {
+    background-color: #f8f8f8;
+    font-weight: 600;
+  }
+  .time {
+    font-size: 13px;
+    color: #666;
+  }
+</style>
+</head>
+<body>
+
+  <div class="top-row">
+    <h1>Mini Twitter</h1>
+    <a href="/"><button class="tweet-btn">Post a tweet</button></a>
+  </div>
+  <div class="subtitle">
+    Recent tweets <em>(Latest 10 tweets only)</em>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Message</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Thymeleaf loop -->
+      <tr th:each="tweet : ${tweets}">
+        <td th:text="${tweet.name}">User</td>
+        <td th:text="${tweet.message}">Message</td>
+        <td th:text="${tweet.createdAt}">Time</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>
